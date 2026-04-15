@@ -1,0 +1,40 @@
+# ─── CREDENCIALES (NUNCA subir al repositorio) ───────────────────────────────
+backend/database.py
+.env
+*.env
+
+# ─── LOGS ────────────────────────────────────────────────────────────────────
+*.log
+residencias_error.log
+backend/residencias_error.log
+
+# ─── PYTHON ──────────────────────────────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyz
+*.spec
+build/
+dist/
+*.egg-info/
+
+# ─── NODE / FRONTEND ─────────────────────────────────────────────────────────
+node_modules/
+proyecto/dist/
+proyecto/.vite/
+
+# ─── BACKUPS Y EXPEDIENTES (datos reales, nunca al repo) ─────────────────────
+backup/
+expedientespdf/
+
+# ─── SISTEMA OPERATIVO ───────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ─── EDITORES ────────────────────────────────────────────────────────────────
+.vscode/settings.json
+.idea/
+*.swp
+*.swo

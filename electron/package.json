@@ -1,0 +1,61 @@
+{
+  "name": "archivo-residencias-tecnm",
+  "version": "1.0.0",
+  "description": "Sistema de Archivo de Residencias — TECNM Ciudad Madero",
+  "author": "Maximiliano Santiago Felix(MSF)",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "build-backend": "pyinstaller --onefile --noconsole --name app --distpath backend/dist backend/app.py"
+  },
+  "build": {
+    "appId": "mx.tecnm.cdmadero.residencias",
+    "productName": "Archivo de Residencias",
+    "icon": "build/msf_logo.ico",
+    "copyright": "MSF © 2026",
+    "directories": {
+      "output": "release"
+    },
+    "extraResources": [
+      {
+        "from": "../backend/dist/",
+        "to": "backend/",
+        "filter": [
+          "app.exe"
+        ]
+      }
+    ],
+    "nsis": {
+      "oneClick": false,
+      "installerIcon": "build/msf_logo.ico",
+      "uninstallerIcon": "build/msf_logo.ico",
+      "installerHeaderIcon": "build/msf_logo.ico",
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Archivo de Residencias"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    }
+  },
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.0.0"
+  }
+}

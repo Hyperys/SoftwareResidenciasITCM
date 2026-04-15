@@ -1,0 +1,11 @@
+# CODEOWNERS — Software de Residencias ITCM
+# Cualquier PR al repositorio requiere aprobación explícita de @Hyperys.
+# Esto aplica sin importar quién abra el PR (interno o externo).
+# Documentación: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# ── Regla global: todo el repo ────────────────────────────────────────────────
+*    @Hyperys
+
+# ── Reglas específicas por módulo (cuando agregues colaboradores) ─────────────
+# backend/    @Hyperys @colaborador-backend
+# proyecto/   @Hyperys @colaborador-frontend

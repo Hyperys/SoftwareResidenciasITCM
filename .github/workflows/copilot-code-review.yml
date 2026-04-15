@@ -1,0 +1,34 @@
+name: Copilot Code Review
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened, ready_for_review, synchronize]
+
+jobs:
+  copilot-review:
+    name: Copilot Code Review
+    runs-on: ubuntu-latest
+
+    # Solo ejecutar en PRs que no son drafts
+    if: github.event.pull_request.draft == false
+
+    permissions:
+      pull-requests: write
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Copilot Code Review
+        uses: github/copilot-code-review@v1
+        with:
+          # Revisar solo archivos relevantes del proyecto
+          exclude-patterns: |
+            proyecto/package-lock.json
+            electron/package-lock.json
+            **/*.min.js
+            **/dist/**
+            **/__pycache__/**

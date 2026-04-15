@@ -1,0 +1,83 @@
+name: Security
+
+on:
+  pull_request:
+    branches:
+      - main
+  schedule:
+    # Cada lunes a las 07:00 UTC (01:00 CST)
+    - cron: '0 7 * * 1'
+  workflow_dispatch:
+
+jobs:
+  # ─── CodeQL: análisis estático de código ───────────────────────────────────
+  codeql:
+    name: CodeQL Analysis
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      actions: read
+      contents: read
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ['python', 'javascript']
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Inicializar CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+          queries: security-and-quality
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+
+      - name: Análisis CodeQL
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: '/language:${{ matrix.language }}'
+
+  # ─── Dependencias Python ─────────────────────────────────────────────────────
+  pip-audit:
+    name: Python Dependency Audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar pip-audit
+        run: pip install pip-audit
+
+      - name: Auditar dependencias Python
+        run: pip-audit -r backend/requirements.txt --format=markdown
+        continue-on-error: true   # Reporta pero no bloquea el PR por ahora
+
+  # ─── Dependencias Node.js ────────────────────────────────────────────────────
+  npm-audit:
+    name: Node Dependency Audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Auditar dependencias npm
+        working-directory: proyecto
+        run: npm audit --audit-level=high
+        continue-on-error: true   # Reporta pero no bloquea el PR por ahora

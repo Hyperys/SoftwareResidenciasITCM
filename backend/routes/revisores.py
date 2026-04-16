@@ -139,7 +139,8 @@ def update_revisor(id):
         return jsonify({"ok": True})
     except Exception as e:
         conn.rollback()
-        logger.exception("Error actualizando revisor id=%s", id)
+        safe_id = str(id).replace('\r', '').replace('\n', '')
+        logger.exception("Error actualizando revisor id=%s", safe_id)
         return jsonify({"error": "Error interno del servidor"}), 500
     finally:
         cursor.close()

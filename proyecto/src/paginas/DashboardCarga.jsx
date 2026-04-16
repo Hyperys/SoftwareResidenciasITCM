@@ -173,7 +173,6 @@ export function DashboardCarga({ asesores }) {
                 <div style={{ padding: '0 24px 24px 24px' }}>
                     {asesoresOrdenados.map((asesor, idx) => {
                         const isExpanded = expandedAdvisor === asesor.id;
-                        const colorInfo = getColorCarga(asesor.numProyectos);
                         return (
                             <div key={asesor.id} style={{ borderBottom: idx < asesoresOrdenados.length - 1 ? '1px solid #F0F4F9' : 'none', paddingTop: idx === 0 ? 24 : 16, paddingBottom: 16 }}>
                                 <div

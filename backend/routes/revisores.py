@@ -102,7 +102,8 @@ def create_revisor():
         return jsonify({"ok": True, "id": nuevo_id}), 201
     except Exception as e:
         conn.rollback()
-        return jsonify({"error": str(e)}), 500
+        logger.exception("Error creando revisor")
+        return jsonify({"error": "Error interno del servidor"}), 500
     finally:
         cursor.close()
         conn.close()
@@ -138,7 +139,8 @@ def update_revisor(id):
         return jsonify({"ok": True})
     except Exception as e:
         conn.rollback()
-        return jsonify({"error": str(e)}), 500
+        logger.exception("Error actualizando revisor id=%s", id)
+        return jsonify({"error": "Error interno del servidor"}), 500
     finally:
         cursor.close()
         conn.close()

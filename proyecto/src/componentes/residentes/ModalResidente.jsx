@@ -11,14 +11,6 @@ import { ModalSeleccionRevisor } from "../revisores/ModalSeleccionRevisor";
 //        isProjectMode (bool, default false)
 // ══════════════════════════════════════════════════════════════
 
-const DOCS_TYPES = [
-    "Solicitud de residencia", "Carta de presentación", "Constancia de servicio social",
-    "Anteproyecto", "Autorización de anteproyecto", "Asignación de asesor",
-    "1er. reporte de asesoría", "2do. reporte de asesoría", "3er. reporte de asesoría",
-    "Evaluación final", "Reporte final (PDF)", "Práctica del reporte final con firmas",
-    "Carta de liberación o terminación", "Otro"
-];
-
 export function ModalResidente({ show, onClose, resident, onSaved, isProjectMode = false }) {
     const { notify, alert, confirm } = useNotification();
     const isNew = !resident;

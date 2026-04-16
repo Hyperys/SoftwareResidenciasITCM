@@ -3,6 +3,7 @@ from flask import Flask, jsonify
 from routes.carreras   import bp as carreras_bp
 from routes.empresas   import bp as empresas_bp
 from routes.asesores   import bp as asesores_bp
+from routes.revisores  import bp as revisores_bp
 from routes.residentes import bp as residentes_bp
 from routes.proyectos  import bp as proyectos_bp
 from routes.backup     import bp_backup
@@ -23,6 +24,7 @@ app = Flask(__name__, static_folder=STATIC_DIR, static_url_path='')
 app.register_blueprint(carreras_bp)
 app.register_blueprint(empresas_bp)
 app.register_blueprint(asesores_bp)
+app.register_blueprint(revisores_bp)
 app.register_blueprint(residentes_bp)
 app.register_blueprint(proyectos_bp)
 app.register_blueprint(bp_backup)

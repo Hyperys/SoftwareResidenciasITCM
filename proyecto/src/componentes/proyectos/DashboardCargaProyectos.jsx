@@ -207,7 +207,6 @@ export function DashboardCargaProyectos({ asesores, proyectos, darkMode, onRefre
                 <div style={{ padding: '0 24px 24px 24px' }}>
                     {asesoresOrdenados.map((asesor, idx) => {
                         const isExpanded = expandedAdvisor === asesor.id;
-                        const colorInfo = getColorCarga(asesor.numProyectos);
                         return (
                             <div key={asesor.id} style={{ borderBottom: idx < asesoresOrdenados.length - 1 ? `1px solid ${d.rowDiv}` : 'none', paddingTop: idx === 0 ? 24 : 16, paddingBottom: 16 }}>
                                 <div

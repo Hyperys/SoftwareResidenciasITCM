@@ -12,7 +12,7 @@ import { ModalSeleccionRevisor } from "../revisores/ModalSeleccionRevisor";
 // ══════════════════════════════════════════════════════════════
 
 export function ModalResidente({ show, onClose, resident, onSaved, isProjectMode = false }) {
-    const { notify, alert, confirm } = useNotification();
+    const { notify, alert } = useNotification();
     const isNew = !resident;
 
     const emptyForm = {

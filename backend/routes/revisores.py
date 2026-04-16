@@ -169,7 +169,8 @@ def delete_revisor(id):
         return jsonify({"ok": True})
     except Exception as e:
         conn.rollback()
-        return jsonify({"error": str(e)}), 500
+        logger.exception("Error eliminando revisor id=%s", id)
+        return jsonify({"error": "Error interno del servidor"}), 500
     finally:
         cursor.close()
         conn.close()

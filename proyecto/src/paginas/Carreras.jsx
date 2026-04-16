@@ -17,7 +17,7 @@ export function Carreras() {
     const [search, setSearch] = useState("");
     const [formNombre, setFormNombre] = useState("");
     const [formHabilitada, setFormHabilitada] = useState(true);
-    const [_formEsp, setFormEsp] = useState("");     // nueva especialidad
+    const [formEsp] = useState("");     // nueva especialidad
     const [loading, setLoading] = useState(false);
 
     const cargarCarreras = () => {

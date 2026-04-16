@@ -1,7 +1,9 @@
+import logging
 from flask import Blueprint, jsonify, request
 from database import get_connection
 
 bp = Blueprint('revisores', __name__, url_prefix='/api/revisores')
+logger = logging.getLogger(__name__)
 
 # ──────────────────────────────────────────────────────────────
 # Los revisores son personas de la tabla `asesores`.
@@ -36,8 +38,9 @@ def get_revisores():
         query += " ORDER BY a.apellidos, a.nombres"
         cursor.execute(query, params)
         return jsonify(cursor.fetchall())
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+    except Exception:
+        logger.exception("Error al obtener revisores")
+        return jsonify({"error": "Ocurrió un error interno"}), 500
     finally:
         cursor.close()
         conn.close()
@@ -62,8 +65,9 @@ def get_revisor(id):
         if not row:
             return jsonify({"error": "Revisor no encontrado"}), 404
         return jsonify(row)
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+    except Exception:
+        logger.exception("Error al obtener revisor por id")
+        return jsonify({"error": "Ocurrió un error interno"}), 500
     finally:
         cursor.close()
         conn.close()

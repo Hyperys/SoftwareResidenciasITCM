@@ -8,11 +8,11 @@ import React, { useState, createContext, useContext, useCallback } from "react";
 export const NotifContext = createContext(null);
 
 const ICONS = {
-    success: '✓',
-    error: '✕',
-    warning: '⚠',
-    info: 'ℹ',
-    confirm: '?',
+    success: 'check_circle',
+    error: 'cancel',
+    warning: 'warning',
+    info: 'info',
+    confirm: 'help',
 };
 
 const TITLES = {
@@ -74,7 +74,9 @@ export function NotifProvider({ children }) {
                     <div className={`notif-card${dialogExiting ? ' exiting' : ''}`}>
                         <div className="notif-icon-row">
                             <div className={`notif-icon-circle ${dialog.type}`}>
-                                {ICONS[dialog.type]}
+                                <span className="material-symbols-rounded" style={{ fontSize: 28 }}>
+                                    {ICONS[dialog.type]}
+                                </span>
                             </div>
                         </div>
                         <div className="notif-body">

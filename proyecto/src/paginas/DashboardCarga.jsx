@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // ══════════════════════════════════════════════════════════════
 // DASHBOARD CARGA (auxiliar de la página Asesores)
@@ -9,82 +9,35 @@ import React, { useState } from "react";
 export function DashboardCarga({ asesores }) {
     const [expandedAdvisor, setExpandedAdvisor] = useState(null);
 
-    // Datos mock de proyectos (esto vendrá del backend en el futuro)
-    const proyectosPorAsesor = {
-        1: [
-            { id: 1, nombre: "Optimización de Logística", estudiante: "Juan Martínez", carrera: "ISC" },
-            { id: 2, nombre: "Desarrollo Plataforma Web", estudiante: "Ana Torres", carrera: "ISC" },
-            { id: 3, nombre: "Análisis de Datos", estudiante: "Luis Ramírez", carrera: "II" },
-            { id: 4, nombre: "Sistema ERP Empresarial", estudiante: "María González", carrera: "ISC" },
-            { id: 5, nombre: "App Móvil Inventarios", estudiante: "Carlos Ruiz", carrera: "ISC" },
-            { id: 6, nombre: "Dashboard Analytics", estudiante: "Laura Díaz", carrera: "II" },
-            { id: 7, nombre: "API REST Pagos", estudiante: "Pedro Sánchez", carrera: "ISC" },
-            { id: 8, nombre: "Web Institucional", estudiante: "Rosa Vega", carrera: "ISC" },
-            { id: 9, nombre: "Sistema Ventas", estudiante: "Jorge Castro", carrera: "II" },
-            { id: 10, nombre: "App Logística", estudiante: "Roberto Cruz", carrera: "ISC" },
-            { id: 11, nombre: "Portal Clientes", estudiante: "Sofia Ramírez", carrera: "ISC" },
-            { id: 12, nombre: "CRM Empresarial", estudiante: "Miguel Ángel López", carrera: "II" },
-        ],
-        2: [
-            { id: 13, nombre: "Sistema Inventarios", estudiante: "Carmen López", carrera: "II" },
-            { id: 14, nombre: "Dashboard Ventas", estudiante: "Antonio Vargas", carrera: "ISC" },
-            { id: 15, nombre: "App de Gestión", estudiante: "Isabel Cruz", carrera: "ISC" },
-            { id: 16, nombre: "Portal Educativo", estudiante: "Fernando Ruiz", carrera: "ISC" },
-            { id: 17, nombre: "Sistema de Reportes", estudiante: "Patricia Gómez", carrera: "II" },
-            { id: 18, nombre: "Plataforma E-learning", estudiante: "Ricardo Torres", carrera: "ISC" },
-            { id: 19, nombre: "App de Seguimiento", estudiante: "Gabriela Díaz", carrera: "ISC" },
-            { id: 20, nombre: "Sistema de Calidad", estudiante: "Alberto Sánchez", carrera: "II" },
-            { id: 21, nombre: "Web Corporativa", estudiante: "Monica Pérez", carrera: "ISC" },
-            { id: 22, nombre: "API de Integración", estudiante: "Héctor Castro", carrera: "ISC" },
-        ],
-        3: [
-            { id: 23, nombre: "App de Servicios", estudiante: "Daniela Ramírez", carrera: "ISC" },
-            { id: 24, nombre: "Sistema de Compras", estudiante: "Andrés López", carrera: "II" },
-            { id: 25, nombre: "Portal de Proveedores", estudiante: "Claudia Martínez", carrera: "ISC" },
-            { id: 26, nombre: "Dashboard Operativo", estudiante: "Javier Torres", carrera: "II" },
-            { id: 27, nombre: "App de Monitoreo", estudiante: "Beatriz Ruiz", carrera: "ISC" },
-            { id: 28, nombre: "Sistema de Control", estudiante: "Raúl Gómez", carrera: "ISC" },
-            { id: 29, nombre: "Web de Consultas", estudiante: "Verónica Díaz", carrera: "II" },
-            { id: 30, nombre: "API de Reportes", estudiante: "Ernesto Sánchez", carrera: "ISC" },
-        ],
-        4: [
-            { id: 31, nombre: "Sistema de Nómina", estudiante: "Silvia Pérez", carrera: "II" },
-            { id: 32, nombre: "App de Recursos", estudiante: "Guillermo Castro", carrera: "ISC" },
-            { id: 33, nombre: "Portal de Empleados", estudiante: "Mariana Ramírez", carrera: "ISC" },
-            { id: 34, nombre: "Dashboard RH", estudiante: "Francisco López", carrera: "II" },
-            { id: 35, nombre: "Sistema de Evaluación", estudiante: "Adriana Martínez", carrera: "ISC" },
-            { id: 36, nombre: "App de Capacitación", estudiante: "Rodrigo Torres", carrera: "ISC" },
-        ],
-        5: [
-            { id: 37, nombre: "Web de Productos", estudiante: "Valeria Ruiz", carrera: "ISC" },
-            { id: 38, nombre: "Sistema de Marketing", estudiante: "Sergio Gómez", carrera: "II" },
-            { id: 39, nombre: "App de Promociones", estudiante: "Carolina Díaz", carrera: "ISC" },
-            { id: 40, nombre: "Portal de Clientes", estudiante: "Mauricio Sánchez", carrera: "ISC" },
-            { id: 41, nombre: "Dashboard Comercial", estudiante: "Alejandra Pérez", carrera: "II" },
-        ],
-        6: [
-            { id: 42, nombre: "Sistema de Facturación", estudiante: "Eduardo Castro", carrera: "ISC" },
-            { id: 43, nombre: "App Contable", estudiante: "Martha Ramírez", carrera: "II" },
-            { id: 44, nombre: "Portal Financiero", estudiante: "Oscar López", carrera: "ISC" },
-            { id: 45, nombre: "Dashboard Fiscal", estudiante: "Lorena Martínez", carrera: "ISC" },
-        ],
-        7: [
-            { id: 46, nombre: "Web de Servicios", estudiante: "Pablo Torres", carrera: "II" },
-            { id: 47, nombre: "Sistema de Tickets", estudiante: "Natalia Ruiz", carrera: "ISC" },
-            { id: 48, nombre: "App de Soporte", estudiante: "Arturo Gómez", carrera: "ISC" },
-        ],
-        8: [
-            { id: 49, nombre: "Portal Académico", estudiante: "Julia Díaz", carrera: "ISC" },
-            { id: 50, nombre: "Sistema de Calificaciones", estudiante: "Víctor Sánchez", carrera: "II" },
-        ],
-        9: [
-            { id: 51, nombre: "App de Biblioteca", estudiante: "Camila Pérez", carrera: "ISC" },
-            { id: 52, nombre: "Sistema de Préstamos", estudiante: "Diego Castro", carrera: "ISC" },
-        ],
-        10: [
-            { id: 53, nombre: "Dashboard Administrativo", estudiante: "Elena Ramírez", carrera: "II" },
-        ],
-    };
+    const [proyectosPorAsesor, setProyectosPorAsesor] = useState({});
+
+    useEffect(() => {
+        fetch('/api/residentes?estado=activo')
+            .then(res => res.json())
+            .then(data => {
+                if (Array.isArray(data)) {
+                    const dict = {};
+                    data.forEach(r => {
+                        const pInfo = {
+                            id: r.num_control,
+                            nombre: r.nombre_proyecto || 'Sin nombre',
+                            estudiante: r.nombre_completo,
+                            carrera: r.carrera || 'N/A'
+                        };
+                        if (r.asesor_interno_id) {
+                            if (!dict[r.asesor_interno_id]) dict[r.asesor_interno_id] = [];
+                            dict[r.asesor_interno_id].push(pInfo);
+                        }
+                        if (r.asesor_externo_id) {
+                            if (!dict[r.asesor_externo_id]) dict[r.asesor_externo_id] = [];
+                            dict[r.asesor_externo_id].push(pInfo);
+                        }
+                    });
+                    setProyectosPorAsesor(dict);
+                }
+            })
+            .catch(err => console.error("Error al cargar proyectos del dashboard:", err));
+    }, []);
 
     const asesoresConProyectos = asesores.map(asesor => ({
         ...asesor,
@@ -178,7 +131,7 @@ export function DashboardCarga({ asesores }) {
                                 <div
                                     onClick={() => setExpandedAdvisor(isExpanded ? null : asesor.id)}
                                     style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', padding: '8px 12px', borderRadius: 8, transition: 'background 0.15s' }}
-                                    onMouseEnter={(e) => e.currentTarget.style.background = '#9cb7e0ff'}
+                                    onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(100, 116, 139, 0.08)'}
                                     onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                                 >
                                     <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
